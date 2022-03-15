@@ -53,6 +53,7 @@ dependencies:
   vector_map_tiles: ^1.4.3
   lat_lon_grid_plugin: ^0.2.2
   vector_tile_renderer: ^2.3.1
+  flutter_tts: ^3.3.3
 
 dev_dependencies:
   flutter_test:
