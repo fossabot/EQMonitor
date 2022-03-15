@@ -4,6 +4,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,8 +29,14 @@ class Messaging extends GetxController {
       sound: true,
     );
     FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) async => await AwesomeNotifications()
-          .createNotificationFromJsonData(message.data),
+      (RemoteMessage message) async {
+        await AwesomeNotifications()
+          .createNotificationFromJsonData(message.data);
+FlutterTts flutterTts = FlutterTts();
+              await flutterTts.awaitSpeakCompletion(true);
+              await flutterTts.setLanguage("ja-JP");
+              await flutterTts.speak("これはテストです");
+},
     );
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
@@ -306,6 +314,10 @@ class Messaging extends GetxController {
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
+  FlutterTts flutterTts = FlutterTts();
+  await flutterTts.awaitSpeakCompletion(true);
+  await flutterTts.setLanguage("ja-JP");
+  await flutterTts.speak("これはテストです");
   await AwesomeNotifications().createNotificationFromJsonData(message.data);
 }
 
