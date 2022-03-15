@@ -9,6 +9,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
 
 import '../utils/earthquake.dart';
 import '../utils/map.dart';
@@ -44,6 +46,15 @@ class IntroPage extends StatelessWidget {
               await Get.toNamed<void>('/setting');
             },
             icon: const Icon(Icons.settings),
+          ),
+          IconButton(
+            onPressed: () async {
+              FlutterTts flutterTts = FlutterTts();
+              await flutterTts.awaitSpeakCompletion(true);
+              await flutterTts.setLanguage("ja-JP");
+              await flutterTts.speak("これはテストです");
+            },
+            icon: const Icon(Icons.info),
           ),
         ],
       ),
